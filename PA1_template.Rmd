@@ -92,11 +92,11 @@ mean(dailySteps2); median(dailySteps2)
 
 The impact of imputing missing data on the estimates of the total daily number of steps:
 
-* The distribution does not change in shape, but it does coverge more to the middle after imputing missing data. A larger number of days fall into the bins near the mean.
+- The distribution does not change in shape, but it does coverge more to the middle after imputing missing data. A larger number of days fall into the bins near the mean.
 
-* The mean total daily number of steps remains the same after imputing missing data.
+- The mean total daily number of steps remains the same after imputing missing data.
 
-* The median slightly increases from 10765 to 10766.19
+- The median slightly increases from 10765 to 10766.19
 
 ## Are there differences in activity patterns between weekdays and weekends?
 

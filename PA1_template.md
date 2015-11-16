@@ -1,9 +1,4 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 
@@ -37,7 +32,7 @@ dailySteps <- sapply(split(stepData$steps, stepData$date), sum)
 hist(dailySteps, main = "", ylab = "Number of Days", xlab = "Number of Steps", breaks = 15)
 ```
 
-![plot of chunk hitogram](figure/hitogram-1.png) 
+![](PA1_template_files/figure-html/hitogram-1.png) 
 
 3. Calculate the mean and median of the total number of steps taken per day.
 
@@ -65,7 +60,7 @@ avgIntervalSteps <- lapply(split(stepData$steps, stepData$interval), mean, na.rm
 plot(names(avgIntervalSteps), avgIntervalSteps, type = "l", main = "Average Number of Steps Taken in Each 5-minute Interval", xlab = "Interval Identifier", ylab = "Average Number of Steps")
 ```
 
-![plot of chunk time-series-plot](figure/time-series-plot-1.png) 
+![](PA1_template_files/figure-html/time-series-plot-1.png) 
 
 2. Find the 5-minute interval that, on average across all the days in the dataset, contains the maximum number of steps.
 
@@ -113,7 +108,7 @@ dailySteps2 <- sapply(split(stepDataFilled$steps, stepDataFilled$date), sum)
 hist(dailySteps2, main = "", ylab = "Number of Days", xlab = "Number of Steps", breaks = 15)
 ```
 
-![plot of chunk histogram2](figure/histogram2-1.png) 
+![](PA1_template_files/figure-html/histogram2-1.png) 
 
 4. Calculate the mean and median total number of steps taken per day.
 
@@ -132,11 +127,11 @@ mean(dailySteps2); median(dailySteps2)
 
 The impact of imputing missing data on the estimates of the total daily number of steps:
 
-* The distribution does not change in shape, but it does coverge more to the middle after imputing missing data. A larger number of days fall into the bins near the mean.
+- The distribution does not change in shape, but it does coverge more to the middle after imputing missing data. A larger number of days fall into the bins near the mean.
 
-* The mean total daily number of steps remains the same after imputing missing data.
+- The mean total daily number of steps remains the same after imputing missing data.
 
-* The median slightly increases from 10765 to 10766.19
+- The median slightly increases from 10765 to 10766.19
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -145,6 +140,22 @@ The impact of imputing missing data on the estimates of the total daily number o
 
 ```r
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 weekends <- c("Saturday", "Sunday")
 stepDataFilled <- mutate(stepDataFilled, wday = factor(1 * (weekdays(date) %in% weekends), labels = c("weekday", "weekend")))
 ```
@@ -158,4 +169,4 @@ xyplot(steps ~ interval | wday, data = avgIntervalSteps2, aspect = 1/3,
     type = "l")
 ```
 
-![plot of chunk panel-plot](figure/panel-plot-1.png) 
+![](PA1_template_files/figure-html/panel-plot-1.png) 
