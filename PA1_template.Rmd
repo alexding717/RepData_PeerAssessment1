@@ -84,7 +84,7 @@ dailySteps2 <- sapply(split(stepDataFilled$steps, stepDataFilled$date), sum)
 hist(dailySteps2, main = "", ylab = "Number of Days", xlab = "Number of Steps", breaks = 15)
 ```
 
-4. Calculate the mean and median total number of steps taken per day
+4. Calculate the mean and median total number of steps taken per day.
 
 ```{r mean-and-median2}
 mean(dailySteps2); median(dailySteps2)
@@ -102,7 +102,7 @@ The impact of imputing missing data on the estimates of the total daily number o
 
 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
-```{r creat-new-factor}
+```{r creat-new-factor, results = "hide"}
 library(dplyr)
 weekends <- c("Saturday", "Sunday")
 stepDataFilled <- mutate(stepDataFilled, wday = factor(1 * (weekdays(date) %in% weekends), labels = c("weekday", "weekend")))

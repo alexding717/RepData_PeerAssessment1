@@ -115,7 +115,7 @@ hist(dailySteps2, main = "", ylab = "Number of Days", xlab = "Number of Steps", 
 
 ![plot of chunk histogram2](figure/histogram2-1.png) 
 
-4. Calculate the mean and median total number of steps taken per day
+4. Calculate the mean and median total number of steps taken per day.
 
 
 ```r
