@@ -1,9 +1,4 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 
@@ -13,7 +8,8 @@ First, load the data into R.
 The zipped file `activity.zip` should be under the current working directory.  
 Then, convert the column "date" to the date class.
 
-```{r load-and-preprocess-data}
+
+```r
 stepData <- read.csv(unzip("activity.zip"), header = T, as.is = T)
 stepData$date <- as.Date(stepData$date, "%Y-%m-%d")
 ```
@@ -24,49 +20,76 @@ For this part, missing values in the dataset are ignored.
 
 1. Calculate the total number of steps taken per day.
 
-```{r total-daily-steps}
+
+```r
 dailySteps <- sapply(split(stepData$steps, stepData$date), sum)
 ```
 
 2. Plot a histogram of the total number of steps taken each day.
 
-```{r hitogram}
+
+```r
 hist(dailySteps, main = "", ylab = "Number of Days", xlab = "Number of Steps", breaks = 15)
 ```
 
+![](PA1_template_files/figure-html/hitogram-1.png) 
+
 3. Calculate the mean and median of the total number of steps taken per day.
 
-```{r mean-and-median}
+
+```r
 mean(dailySteps, na.rm = T); median(dailySteps, na.rm = T)
+```
+
+```
+## [1] 10766.19
+```
+
+```
+## [1] 10765
 ```
 
 ## What is the average daily activity pattern?
 
 1. Make a time series plot of the 5-minute interval and the average number of steps taken, averaged across all days.
 
-```{r time-series-plot}
+
+```r
 avgIntervalSteps <- lapply(split(stepData$steps, stepData$interval), mean, na.rm = T)
 
 plot(names(avgIntervalSteps), avgIntervalSteps, type = "l", main = "Average Number of Steps Taken in Each 5-minute Interval", xlab = "Interval Identifier", ylab = "Average Number of Steps")
 ```
 
+![](PA1_template_files/figure-html/time-series-plot-1.png) 
+
 2. Find the 5-minute interval that, on average across all the days in the dataset, contains the maximum number of steps.
 
-```{r}
+
+```r
 names(avgIntervalSteps)[which.max(avgIntervalSteps)]
+```
+
+```
+## [1] "835"
 ```
 
 ## Imputing missing values
 
 1. Calculate the total number of missing values in the dataset.
 
-```{r num-of-missing-values}
+
+```r
 sum(is.na(stepData$steps))
+```
+
+```
+## [1] 2304
 ```
 
 2. Fill in the missing values in the dataset with the mean for that 5-minute interval and create a new dataset with the missing values filled in using the aforementioned strategy.
 
-```{r fill-in-missing-value}
+
+```r
 stepDataFilled <- stepData
 missingIndex <- which(is.na(stepData$steps))
 
@@ -78,16 +101,28 @@ for (i in missingIndex) {
 
 3. Plot a histogram of the total number of steps taken each day.
 
-```{r}
+
+```r
 dailySteps2 <- sapply(split(stepDataFilled$steps, stepDataFilled$date), sum)
 
 hist(dailySteps2, main = "", ylab = "Number of Days", xlab = "Number of Steps", breaks = 15)
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+
 4. Calculate the mean and median total number of steps taken per day
 
-```{r mean-and-median2}
+
+```r
 mean(dailySteps2); median(dailySteps2)
+```
+
+```
+## [1] 10766.19
+```
+
+```
+## [1] 10766.19
 ```
 
 The impact of imputing missing data on the estimates of the total daily number of steps:
@@ -102,16 +137,36 @@ The impact of imputing missing data on the estimates of the total daily number o
 
 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
-```{r creat-new-factor}
+
+```r
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 weekends <- c("Saturday", "Sunday")
 stepDataFilled <- mutate(stepDataFilled, wday = factor(1 * (weekdays(date) %in% weekends), labels = c("weekday", "weekend")))
 ```
 2. Make a panel plot containing a time series plot of the 5-minute interval and the average number of steps taken, averaged across all weekday days or weekend days.
 
-```{r panel-plot}
+
+```r
 avgIntervalSteps2 <- aggregate(steps ~ interval + wday, stepDataFilled, mean)
 library(lattice)
 xyplot(steps ~ interval | wday, data = avgIntervalSteps2, aspect = 1/3, 
     type = "l")
 ```
+
+![](PA1_template_files/figure-html/panel-plot-1.png) 
