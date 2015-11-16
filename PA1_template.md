@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 
@@ -32,7 +37,7 @@ dailySteps <- sapply(split(stepData$steps, stepData$date), sum)
 hist(dailySteps, main = "", ylab = "Number of Days", xlab = "Number of Steps", breaks = 15)
 ```
 
-![](PA1_template_files/figure-html/hitogram-1.png) 
+![plot of chunk hitogram](figure/hitogram-1.png) 
 
 3. Calculate the mean and median of the total number of steps taken per day.
 
@@ -60,7 +65,7 @@ avgIntervalSteps <- lapply(split(stepData$steps, stepData$interval), mean, na.rm
 plot(names(avgIntervalSteps), avgIntervalSteps, type = "l", main = "Average Number of Steps Taken in Each 5-minute Interval", xlab = "Interval Identifier", ylab = "Average Number of Steps")
 ```
 
-![](PA1_template_files/figure-html/time-series-plot-1.png) 
+![plot of chunk time-series-plot](figure/time-series-plot-1.png) 
 
 2. Find the 5-minute interval that, on average across all the days in the dataset, contains the maximum number of steps.
 
@@ -108,7 +113,7 @@ dailySteps2 <- sapply(split(stepDataFilled$steps, stepDataFilled$date), sum)
 hist(dailySteps2, main = "", ylab = "Number of Days", xlab = "Number of Steps", breaks = 15)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+![plot of chunk histogram2](figure/histogram2-1.png) 
 
 4. Calculate the mean and median total number of steps taken per day
 
@@ -140,22 +145,6 @@ The impact of imputing missing data on the estimates of the total daily number o
 
 ```r
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 weekends <- c("Saturday", "Sunday")
 stepDataFilled <- mutate(stepDataFilled, wday = factor(1 * (weekdays(date) %in% weekends), labels = c("weekday", "weekend")))
 ```
@@ -169,4 +158,4 @@ xyplot(steps ~ interval | wday, data = avgIntervalSteps2, aspect = 1/3,
     type = "l")
 ```
 
-![](PA1_template_files/figure-html/panel-plot-1.png) 
+![plot of chunk panel-plot](figure/panel-plot-1.png) 

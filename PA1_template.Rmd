@@ -52,7 +52,7 @@ plot(names(avgIntervalSteps), avgIntervalSteps, type = "l", main = "Average Numb
 
 2. Find the 5-minute interval that, on average across all the days in the dataset, contains the maximum number of steps.
 
-```{r}
+```{r max-interval}
 names(avgIntervalSteps)[which.max(avgIntervalSteps)]
 ```
 
@@ -78,7 +78,7 @@ for (i in missingIndex) {
 
 3. Plot a histogram of the total number of steps taken each day.
 
-```{r}
+```{r histogram2}
 dailySteps2 <- sapply(split(stepDataFilled$steps, stepDataFilled$date), sum)
 
 hist(dailySteps2, main = "", ylab = "Number of Days", xlab = "Number of Steps", breaks = 15)
